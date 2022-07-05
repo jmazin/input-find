@@ -11,7 +11,7 @@
 <body>
 
     Type in ID:
-    <input id="id-input"></input>
+    <input id="id-input" type="number" style="color: green;"></input>
 
     <div id="container"></div>
 
@@ -19,23 +19,33 @@
 
         const cats = [
 
-            { id: 1, name: 'Jimmy' },
-            { id: 3, name: 'Sammy' },
-            { id: 4, name: 'Frankie' },
-            { id: 2, name: 'Dolly' },
+            { id: '1', name: 'Jimmy' },
+            { id: '3', name: 'Sammy' },
+            { id: '4', name: 'Frankie' },
+            { id: '2', name: 'Dolly' },
 
         ]
 
         const container = document.getElementById('container')
         const input = document.getElementById('id-input')
 
+
         input.addEventListener('change', (e) => {
+            const value = e.target.value;
+
+            const foundElement = cats.find(cat => cat.id === value)
+
+            if (foundElement) {
+                renderAnimal(foundElement)
+            } else {
+                renderNotFound()
+            }
         })
 
-        const renderAnimal = ({ name }) => {
+        const renderAnimal = (foundElement) => {
             container.textContent = "";
             const pTag = document.createElement('p')
-            pTag.textContent = name;
+            pTag.textContent = foundElement.name;
             container.append(pTag)
         }
 
